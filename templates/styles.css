@@ -15,6 +15,7 @@ body {
         text-align: center;
         font-size: 30px;
     }
+
     p {
         text-align: left;
         font-size: 20px;
@@ -24,6 +25,11 @@ body {
         margin: 10px;
   
     }
+
+     #form_text {
+        color: rgb(7, 9, 115);
+        text-align: center;
+     }
 
     a:link, a:visited {
         color: rgb(7, 9, 115);
