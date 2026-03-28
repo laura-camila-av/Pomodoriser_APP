@@ -38,7 +38,6 @@
         border-radius: 10px;
         margin: 10px;
         background-color: rgb(183, 184, 247);
-
     }
 
     
@@ -63,7 +62,7 @@
       
         <p id="form_text">How long, in number of pomoodoro sessions would you like this plan to be?<br>Note that a Pomodoro sprint is 30 minutes long.</p>
         <div class="input-group">
-            <label for="time_available">Plan Duration: </label>
+            <label for="time_available">Plan Duration (Total Pomodoros): </label>
             <input type="number" id="time_available" name="time_available" min="0"><br>  
         </div>
 
@@ -95,10 +94,6 @@
 
    </div>
 
-
-   
-
-
 <!--End of task input form-->
 <script>
 const radios = document.querySelectorAll('input[name="taskTimeUnit"]');
@@ -107,26 +102,55 @@ const taskLabel = document.querySelector('label[for="task_time"]');
 
 radios.forEach(radio => {
     radio.addEventListener('change', function() {
-        
-        taskLabel.textContent = "Task Duration ("+ this.value + "):";
-    });
-});
-
-const timeAvailable = document.getElementById("time_available");
-const taskTime = document.getElementById("task_time");
-
-timeAvailable.addEventListener("input", function() {
-    const maxValue = parseInt(this.value);
+            const maxValue = calculateMax();
 
     if (!isNaN(maxValue)) {
         taskTime.max = maxValue;
 
-        // If current value exceeds new max, reset it
+        if (parseInt(taskTime.value) > maxValue) {
+            taskTime.value = maxValue;
+        }
+    }
+        taskLabel.textContent = "Task Duration ("+ this.value + "):";
+    });
+});
+
+/*7. Set taskTime.max to maxValue
+8. If the current value in taskTime exceeds the new max, cap it down to the max*/
+
+const timeAvailable = document.getElementById("time_available");
+const taskTime = document.getElementById("task_time");
+
+function calculateMax() {
+    planLength = parseInt(document.getElementById("time_available").value); //1
+
+    const unitSelected = document.querySelector('input[name="taskTimeUnit"]:checked').value;
+    if (!unitSelected) { return "No value selected."}
+    if (unitSelected == "Pomodoro Sessions") { //is this how it works? or is there another step/format to extract the id of the radio input
+        maxValue = planLength;
+    }
+    else if (unitSelected == "Hours") {
+        maxValue = planLength / 2; 
+    }
+    else if (unitSelected == "Minutes") {
+        maxValue = planLength / 25; 
+    }
+    return maxValue
+}
+
+timeAvailable.addEventListener("input", function() {
+    const maxValue = calculateMax();
+
+    if (!isNaN(maxValue)) {
+        taskTime.max = maxValue;
+
         if (parseInt(taskTime.value) > maxValue) {
             taskTime.value = maxValue;
         }
     }
 });
+
+
 </script>
 
 </body>
