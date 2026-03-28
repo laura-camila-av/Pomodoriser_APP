@@ -37,6 +37,10 @@ body {
     margin-left: 25%;
     }
 
+    .input-group-left {
+    text-align: left !important;
+    }
+
      #form_text {
         color: rgb(7, 9, 115);
         text-align: center;
