@@ -1,27 +1,40 @@
 body {
     background-color: rgb(183, 184, 247);
+    color: rgb(7, 9, 115);
     font-family: "Courier New";
     margin: 15px;
     
     }
 
-    h1 {
-        color: rgb(7, 9, 115);
+    h1 { 
         text-align: center;
-        font-size: 50px;
+        font-size: 60px;
     
     }
     h2 {
-        color: rgb(7, 9, 115);
         text-align: center;
+        font-size: 30px;
     }
     p {
-        color: rgb(7, 9, 115);
         text-align: left;
         font-size: 20px;
         padding: 5px;
         font-size: 18px;
         border-radius: 10px;
         margin: 10px;
-        
+  
+    }
+
+    a:link, a:visited {
+        color: rgb(7, 9, 115);
+        border: 2px rgb(70,65,150);
+        border-radius: 5px;
+        padding: 10px 20px;
+        text-align: center;
+        display: inline-block;
+    }
+
+    a:hover, a:active {
+        background-color: rgb(70,65,150);
+        color: rgb(218,217,234);
     }
