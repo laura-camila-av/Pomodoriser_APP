@@ -1,1 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="styles.css">
+</head>
+<style>
+  body {text-align: center;} 
+    
+
+</style>
+
+<body>
+<h1>Pomodoriser</h1>
+<h2>What will you achieve today?</h2>
+
+<!--Start of task input form-->
+
+   <div style="background-color: white; 
+   padding-top: 5px; 
+   padding-bottom: 5px; 
+   padding-right:10px; 
+   padding-left:10px; 
+   border-radius: 10px; 
+   margin-left: 12%; 
+   margin-right: 12%;">
+        <form action="/generate" method="post">
+
+        <p>Enter a brief description of your task (not exceeding 50 characters).</p>
+        <div class="input-group">
+            <label for="task_name">Task:</label>
+        </div>
+        <br>
+         <input type="text" id="task_name" name="task_name"><br>
+          
+        <p>Enter the time unit for your task duration estimate.</p>
+        <div class="input-group input-group-left">
+            <input type="radio" id="pomodoro_units" name="taskTimeUnit" value="Pomodoro Sessions">
+            <label for="pomodoro_units">Pomodoro Sessions</label><br>
+            <input type="radio" id="hours" name="taskTimeUnit" value="Hours">
+            <label for="hours">Hours</label><br>
+            <input type="radio" id="minutes" name="taskTimeUnit" value="Minutes">
+            <label for="minutes">Minutes</label><br>
+        </div>
+       
+         <p>Enter the estimated duration of your task.</p>
+         <div class="input-group">
+            <label for="task_time">Task Duration:</label><br>
+         </div>
+         <br>
+         <input type="number" id="task_time" name="task_time" min="0" step="1"><br>
+
+        <br>
+        <input type="submit" value="Submit">
+
+    </form>
+
+   </div>
+
+<!--End of task input form-->
+<script>
+const radios = document.querySelectorAll('input[name="taskTimeUnit"]');
+
+const taskLabel = document.querySelector('label[for="task_time"]');
+
+radios.forEach(radio => {
+    radio.addEventListener('change', function() {
+            const maxValue = calculateMax();
+
+    if (!isNaN(maxValue)) {
+        taskTime.max = maxValue;
+
+        if (parseInt(taskTime.value) > maxValue) {
+            taskTime.value = maxValue;
+        }
+    }
+        taskLabel.textContent = "Task Duration ("+ this.value + "):";
+    });
+});
+
+/*7. Set taskTime.max to maxValue
+8. If the current value in taskTime exceeds the new max, cap it down to the max*/
+
+const timeAvailable = document.getElementById("time_available");
+const taskTime = document.getElementById("task_time");
+
+function calculateMax() {
+    planLength = parseInt(document.getElementById("time_available").value); //1
+
+    const unitSelected = document.querySelector('input[name="taskTimeUnit"]:checked').value;
+    if (!unitSelected) { return "No value selected."}
+    if (unitSelected == "Pomodoro Sessions") { //is this how it works? or is there another step/format to extract the id of the radio input
+        maxValue = planLength;
+    }
+    else if (unitSelected == "Hours") {
+        maxValue = planLength / 2; 
+    }
+    else if (unitSelected == "Minutes") {
+        maxValue = planLength / 25; 
+    }
+    return maxValue
+}
+
+timeAvailable.addEventListener("input", function() {
+    const maxValue = calculateMax();
+
+    if (!isNaN(maxValue)) {
+        taskTime.max = maxValue;
+
+        if (parseInt(taskTime.value) > maxValue) {
+            taskTime.value = maxValue;
+        }
+    }
+});
+
+
+</script>
+
+</body>
+
+</html>
 
