@@ -81,11 +81,10 @@ const timeAvailable = document.getElementById("time_available");
 const taskTime = document.getElementById("task_time");
 
 function calculateMax() {
-    planLength = parseInt(document.getElementById("time_available").value); //1
 
     const unitSelected = document.querySelector('input[name="taskTimeUnit"]:checked').value;
     if (!unitSelected) { return "No value selected."}
-    if (unitSelected == "Pomodoro Sessions") { //is this how it works? or is there another step/format to extract the id of the radio input
+    if (unitSelected == "Pomodoro Sessions") { 
         maxValue = planLength;
     }
     else if (unitSelected == "Hours") {
