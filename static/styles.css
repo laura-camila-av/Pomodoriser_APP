@@ -64,3 +64,39 @@ body {
         background-color: rgb(70,65,150);
         color: rgb(218,217,234);
     }
+
+    .plan-container {
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+.plan-row {
+    display: grid;
+    grid-template-columns: 60px 100px 1fr 200px; /* added notes column */
+    align-items: center;
+    background: rgb(176, 247, 173);
+    margin-bottom: 10px;
+    padding: 12px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.plan-row.header {
+    font-weight: bold;
+    background: #f0f0f0;
+    text-align: left;
+}
+
+.plan-no {
+    font-weight: bold;
+    text-align: left;
+}
+
+.plan-time {
+    color: #555;
+    text-align: left;
+}
+
+.plan-task {
+    text-align: left;
+}
