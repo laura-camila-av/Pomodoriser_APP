@@ -16,7 +16,65 @@
 <body>
 <h1><strong>Pomodoriser</strong> </h1>
 <h2>Your plan:</h2>
+<div class="input-group">
+    <label for="startTime">Start Time:</label>
+    <input type="time" id="startTime">
+</div>
+<div id="planContainer" class="plan-container"></div>
+<script>
+const plan = JSON.parse(localStorage.getItem("plan"));
 
+const container = document.getElementById("planContainer");
+const startTimeInput = document.getElementById("startTime");
+
+function renderPlan() {
+    const startValue = startTimeInput.value;
+
+    if (!startValue) {
+        container.innerHTML = "<p>Please select a start time.</p>";
+        return;
+    }
+
+    let [hours, minutes] = startValue.split(":").map(Number);
+
+    // Clear container
+    container.innerHTML = "";
+
+    // Add header row
+    container.innerHTML += `
+    <div class="plan-row header">
+        <div>#</div>
+        <div>Time</div>
+        <div>Task</div>
+        <div>Notes</div>
+    </div>
+    `;
+
+    plan.forEach((row, index) => {
+        let totalMinutes = hours * 60 + minutes + (index * 30);
+        let h = Math.floor(totalMinutes / 60) % 24;
+        let m = totalMinutes % 60;
+
+        let formattedTime =
+            String(h).padStart(2, "0") + ":" +
+            String(m).padStart(2, "0");
+
+        container.innerHTML += `
+        <div class="plan-row">
+            <div class="plan-no">${row.no}</div>
+            <div class="plan-time">${formattedTime}</div>
+            <div class="plan-task">${row.task}</div>
+            <div>
+                <input type="text" class="note-input" placeholder="Add note...">
+            </div>
+        </div>
+        `;
+    });
+}
+
+// Update when time changes
+startTimeInput.addEventListener("change", renderPlan);
+</script>
 </body>
 
 </html>
